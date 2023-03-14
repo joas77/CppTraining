@@ -2,9 +2,10 @@
 #include <string>
 #include <vector>
 
-void pause();
+void pause(const std::string& msg=std::string{});
 
 int main() {
+    pause("Variable initialization examples");
     // variable declaration
     int unitializedInt; // AVOID not initialized variables in production code
     int initInt = 4;
@@ -21,7 +22,7 @@ int main() {
     const char *msg = "hola mundo";
     std::cout << msg << " is a pointer to a character" << std::endl;
 
-    pause();
+    pause("Conditional examples");
 
     // ******************************************
     // conditionals
@@ -84,7 +85,7 @@ int main() {
         break;
     }
 
-    pause();
+    pause("C-style for loop example");
     // ******************************************
     // for loop
 
@@ -93,7 +94,7 @@ int main() {
         std::cout << "iteration " << i << "th" << std::endl;
     }
 
-    pause();
+    pause("Range based for loop example");
     /* for each loop 
      * first we need an iterable for example:
      * std::vector<T> or std::array<T>
@@ -107,8 +108,11 @@ int main() {
     return 0;
 }
 
-void pause(){
+void pause(const std::string& msg){
     char in;
+    std::cout << "**********************************" << std::endl;
+    if(msg.size()>0)
+        std::cout << msg << std::endl;
     std::cout << "Press any key followed to enter to continue..." << std::endl;
     std::cin >> in;
 }
