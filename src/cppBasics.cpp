@@ -1,15 +1,19 @@
 #include <iostream> // calling iostream library
 #include <string>
+#include <vector>
 
 void pause();
 
 int main() {
     // variable declaration
-    int unitializedInt;
+    int unitializedInt; // AVOID not initialized variables in production code
     int initInt = 4;
+    /* a prefered way to init is bracket initialization */
+    int bracketInit{314};
 
     std::cout << "unitializedInt = " << unitializedInt << " is a random value" << std::endl;
     std::cout << "initInt = " << initInt << " is the initial value" << std::endl;
+    std::cout << "bracketInit = " << bracketInit << " initialized by bracket '{initVal}' notation" << std::endl;
 
     char c = '@';
     std::cout << "c = " << c << " is a character" << std::endl;
@@ -78,6 +82,26 @@ int main() {
     default:
         std::cout << "Your number is out of range (0, 9)" << std::endl;
         break;
+    }
+
+    pause();
+    // ******************************************
+    // for loop
+
+    // C-style for
+    for(std::size_t i=0; i<10; i++){
+        std::cout << "iteration " << i << "th" << std::endl;
+    }
+
+    pause();
+    /* for each loop 
+     * first we need an iterable for example:
+     * std::vector<T> or std::array<T>
+    */
+    std::vector<int> v{1,2,3,4}; // same than v = {1,2,3,4};
+
+    for(int i: v){
+        std::cout << "value = " << i << std::endl;
     }
 
     return 0;
