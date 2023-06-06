@@ -7,8 +7,9 @@ class DynArray {
         ~DynArray();
 
         void push(int elem);
-        int at(std::size_t index);
-        std::size_t size();
+        int& at(std::size_t index);
+        // this method is const which means it does not modify the object
+        std::size_t size() const;
 
     private:
         const int startCapacity = 4;
@@ -40,13 +41,13 @@ void DynArray::push(int elem) {
     mSize++;
 }
 
-int DynArray::at(std::size_t index) {
+int& DynArray::at(std::size_t index) {
     //TODO throw if we try to access
     // an outbound element
     return mData[index];
 }
 
-std::size_t DynArray::size() {
+std::size_t DynArray::size() const {
     return mSize;
 }
 
