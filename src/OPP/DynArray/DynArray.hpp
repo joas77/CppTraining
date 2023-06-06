@@ -4,7 +4,9 @@
 class DynArray {
     public:
         DynArray();
+        //DynArray(const DynArray& src);
         ~DynArray();
+        //DynArray& operator=(const DynArray& rhs);
 
         void push(int elem);
         int& at(std::size_t index);
@@ -18,13 +20,34 @@ class DynArray {
         std::size_t mSize = 0;
         std::size_t mCapacity = startCapacity;
 
-        void copyTo(int* newArray);
+        void copy(int* dst, std::size_t dstSize, int* src, std::size_t srcSize);
 
 };
 
 DynArray::DynArray() : mData(new int[startCapacity]) {}
 
+// DynArray::DynArray(const DynArray& src) {
+//     mSize = src.mSize;
+//     mCapacity = src.mCapacity;
+//     mData = new int[mCapacity];
+//     copy(mData, mSize, src.mData, src.mSize);
+// }
+
+// DynArray& DynArray::operator=(const DynArray& rhs) {
+//     // self assignment
+//     if(this == &rhs) return *this;
+
+//     mSize = rhs.mSize;
+//     mCapacity = rhs.mCapacity;
+
+//     // Free Old memory
+//     if(mData) delete[] mData;
+
+//     copy(mData, mSize, rhs.mData, rhs.mSize);
+// }
+
 DynArray::~DynArray() {
+    std::cout << "Called DynArray destructor!" << std::endl;
     if (!mData)
         delete[] mData;
 }
@@ -33,7 +56,7 @@ void DynArray::push(int elem) {
     if (mSize - mCapacity == 0){
         mCapacity *= growRatio;
         int* newArray = new int[mCapacity];
-        copyTo(newArray);
+        copy(newArray, mSize, mData, mSize);
         delete[] mData;
         mData = newArray;
     }
@@ -51,9 +74,10 @@ std::size_t DynArray::size() const {
     return mSize;
 }
 
-void DynArray::copyTo(int* newArray) {
-    for(std::size_t i = 0; i < mSize; i++) {
-        newArray[i] = mData[i];
+void DynArray::copy(int* dst, std::size_t dstSize, int* src, std::size_t srcSize) {
+    // beware!! make sure dstSize <= srcSize
+    for(std::size_t i=0; i<srcSize; i++) {
+        dst[i] = src[i];
     }
 }
 

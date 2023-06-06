@@ -20,7 +20,8 @@ int main() {
         std::cout << "value at pos " << i << " should be = " << i*2 << ", actual value = " << dynarr.at(i) <<std::endl;
     }
 
-    DynArray copyDynarr{dynarr};
+    //DynArray copyDynarr{dynarr};
+    DynArray copyDynarr = dynarr;
 
     std::cout << "Address of original array = " << &dynarr << ", address of copied array = " << &copyDynarr << std::endl;
 
