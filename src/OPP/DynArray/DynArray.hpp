@@ -4,9 +4,10 @@
 class DynArray {
     public:
         DynArray();
-        //DynArray(const DynArray& src);
+        DynArray(const DynArray& src);
+        DynArray(const DynArray&& src)=delete; //move constructor
         ~DynArray();
-        //DynArray& operator=(const DynArray& rhs);
+        DynArray& operator=(const DynArray& rhs);
 
         void push(int elem);
         int& at(std::size_t index);
@@ -24,27 +25,32 @@ class DynArray {
 
 };
 
-DynArray::DynArray() : mData(new int[startCapacity]) {}
+DynArray::DynArray() : mData(new int[startCapacity]) {
+    std::cout << "Default constructor called!" << std::endl;
+}
 
-// DynArray::DynArray(const DynArray& src) {
-//     mSize = src.mSize;
-//     mCapacity = src.mCapacity;
-//     mData = new int[mCapacity];
-//     copy(mData, mSize, src.mData, src.mSize);
-// }
+DynArray::DynArray(const DynArray& src) {
+    std::cout << "copy constructor called!" << std::endl;
+    mSize = src.mSize;
+    mCapacity = src.mCapacity;
+    mData = new int[mCapacity];
+    copy(mData, mSize, src.mData, src.mSize);
+}
 
-// DynArray& DynArray::operator=(const DynArray& rhs) {
-//     // self assignment
-//     if(this == &rhs) return *this;
+DynArray& DynArray::operator=(const DynArray& rhs) {
+    std::cout << "= operator called!"<<std::endl;
+    // self assignment
+    if(this == &rhs) return *this;
 
-//     mSize = rhs.mSize;
-//     mCapacity = rhs.mCapacity;
+    mSize = rhs.mSize;
+    mCapacity = rhs.mCapacity;
 
-//     // Free Old memory
-//     if(mData) delete[] mData;
+    // Free Old memory
+    if(mData) delete[] mData;
 
-//     copy(mData, mSize, rhs.mData, rhs.mSize);
-// }
+    copy(mData, mSize, rhs.mData, rhs.mSize);
+    return *this;
+}
 
 DynArray::~DynArray() {
     std::cout << "Called DynArray destructor!" << std::endl;
